@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+  <title>Board</title>
+</head>
+<!-- #e07a5f,#81b29a,#f2cc8f -->
+<!-- <body bg style-="white" class="w-full h-screen bg-no-repeat bg-cover sm:bg-transparent"> -->
+
+<body class="bg-[url('assets/image/textured.jpg')] w-full h-full bg-no-repeat bg-cover sm:bg-transparent">
+
+<mat-toolbar id="nav" class="h-14 font-serif font-extralight">
+  <!-- <p class=" text-black font-serif font-light">Hiring Kanban Board</p> -->
+  <p class=" text-black text-2xl font-serif font-light" routerLink="">Hiring Kanban Board</p>
+  <a mat-button (click)="report()" class="text-black font-serif text-end">Report</a>
+  <span class="spacer"></span>
+  &nbsp;
+  <mat-form-field >
+    <mat-label class="text-black">Filter</mat-label>
+    <mat-select class="text-black" (selectionChange)="select($event)">
+      <mat-option class="text-black">None</mat-option>
+      <mat-option class="text-black"*ngFor="let ch of choice" [value]="ch.value">{{ch.viewValue}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  &nbsp; &nbsp; &nbsp;
+  <label class="relative block">
+    <span class="sr-only">Search</span>
+    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+      <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"><!-- ... --></svg>
+    </span>
+    <input #input [(ngModel)]="searchText" class="placeholder:font-serif placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search here..." type="text" name="search"/>
+
+  </label>
+
+  &nbsp;&nbsp;
+  <!-- <input matInput placeholder="Search"  [(ngModel)]="searchText" > -->
+  <a mat-button (click)="searchdata(filterdata,input.value)" class="text-black font-serif text-end">Export CSV</a>
+  &nbsp;&nbsp;
+  <button id="logout-button" class="btn btn-dark border-light" routerLink="/login">Logout</button>
+  <a class="nav-link text-black  hover:bg-gray-500 rounded-md  hover:rounded-xl font-serif text-center text-current sm:text-sm md:text-md" routerLink="/candidate">Add Candidate</a>
+</mat-toolbar>
+
+  <div cdkDropListGroup>
+    <div class="container" >
+      <div id="nav" class="border border-dark p-2 m-3" >
+        <h2 class="text-lg text-black font-serif hover:text-gray-600">Backlog</h2>
+        <div class="list" cdkDropList id="backlog" #backlogList="cdkDropList" [cdkDropListData]="backlog"
+        [cdkDropListConnectedTo]="['progress','review','done']" (cdkDropListDropped)="onDrop($event)">
+        <mat-card class="bg-[#FBB03B] mb-2" *ngFor="let item of backlog |  filter:searchText" cdkDrag>
+          <mat-card-content>
+            <mat-card-header (click)="(open(item))">
+            <mat-card-title>{{item.wgsid}}</mat-card-title>
+            <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-form-field class="example-chip-list" appearance="fill">
+              <mat-chip-list #chipList aria-label="Tags">
+                <mat-chip color="primary" selected *ngFor="let tag of item.tages | search:search" (removed)="remove(tag_id.value)">
+                  <input #tag_id type="hidden" value= {{tag.id}}/>
+                  <a>{{tag.tag_content}}</a>
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+                <input #id type = "hidden" value={{item.wgsid}}/>
+                <input placeholder="New Tags"
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="add($event, id.value)">
+              </mat-chip-list>
+            </mat-form-field>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="nav" class="border border-dark p-2 m-3" >
+      <h2 class="text-lg text-black font-serif hover:text-gray-600">In Progress</h2>
+      <div class="list" cdkDropList id="progress" #progressList="cdkDropList" [cdkDropListData]="progress"
+      [cdkDropListConnectedTo]="['backlog','review','done']" (cdkDropListDropped)="onDrop($event)">
+      <mat-card class="bg-[#172B] mb-2" *ngFor="let item of progress |  filter:searchText" cdkDrag>
+        <mat-card-content>
+          <mat-card-header (click)="(open(item))">
+            <mat-card-title>{{item.wgsid}}</mat-card-title>
+            <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-form-field class="example-chip-list" appearance="fill">
+            <mat-chip-list #chipList aria-label="Tags">
+              <mat-chip color="accent" selected *ngFor="let tag of item.tages | search:search" (removed)="remove(tag_id.value)">
+                <input #tag_id type="hidden" value= {{tag.id}}/>
+                <a>{{tag.tag_content}}</a>
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input #id type = "hidden" value={{item.wgsid}}/>
+              <input placeholder="New Tags"
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event, id.value)">
+            </mat-chip-list>
+          </mat-form-field>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div id="nav" class="border border-dark p-2 m-3" >
+    <h2 class="text-lg text-black font-serif hover:text-gray-600">In Review</h2>
+    <div class="list" cdkDropList id="review" #reviewList="cdkDropList" [cdkDropListData]="review"
+    [cdkDropListConnectedTo]="['backlog','progress','done']" (cdkDropListDropped)="onDrop($event)">
+    <mat-card class="bg-[#614385] mb-2" *ngFor="let item of review | filter:searchText" cdkDrag>
+      <mat-card-content>
+        <mat-card-header (click)="(open(item))">
+          <mat-card-title>{{item.wgsid}}</mat-card-title>
+          <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-chip-list #chipList aria-label="Tags">
+            <mat-chip color="secondary" selected *ngFor="let tag of item.tages | search:search" (removed)="remove(tag_id.value)">
+              <input #tag_id type="hidden" value= {{tag.id}}/>
+              <a>{{tag.tag_content}}</a>
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input #id type = "hidden" value={{item.wgsid}}/>
+            <input placeholder="New Tags"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event, id.value)">
+          </mat-chip-list>
+        </mat-form-field>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+</div>
+
+<div class="container">
+  <div id="nav" class="border border-dark p-2 m-3" >
+    <h2 class="text-lg text-black font-serif hover:text-gray-600">Done</h2>
+    <div class="list" cdkDropList id="done" #doneList="cdkDropList" [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="['backlog','progress','review']" (cdkDropListDropped)="onDrop($event)">
+    <mat-card class="bg-[#172B] mb-2" *ngFor="let item of done | filter:searchText" cdkDrag>
+      <mat-card-content>
+        <mat-card-header (click)="(open(item))">
+          <mat-card-title>{{item.wgsid}}</mat-card-title>
+          <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-chip-list #chipList aria-label="Tags">
+            <mat-chip color="warn" selected *ngFor="let tag of item.tages | search:search" (removed)="remove(tag_id.value)">
+              <input #tag_id type="hidden" value= {{tag.id}}/>
+              <a>{{tag.tag_content}}</a>
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input #id type = "hidden" value={{item.wgsid}}/>
+            <input placeholder="New Tags"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event, id.value)">
+          </mat-chip-list>
+        </mat-form-field>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

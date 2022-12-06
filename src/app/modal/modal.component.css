@@ -1,0 +1,19 @@
+div > mat-card{
+  /* background-color: #cdd7d6; */
+  border-style:solid;
+  width: 800px;
+  height: 800px;
+}
+
+*{
+  color: black;
+}
+#div1{
+float: left;
+width: 1000px;
+overflow-y:scroll;
+}
+#new5 {
+  border: 10px;
+  border-radius: 5px;
+}

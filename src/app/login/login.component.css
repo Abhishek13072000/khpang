@@ -1,0 +1,37 @@
+.center-content{
+  text-align: center;
+}
+#I1 {
+  height: 100px;
+  width: 150px;
+  align-self: center;
+  }
+
+.example-form {
+  min-width: 100px;
+  max-width: 500px;
+   width: 50%;
+    }
+
+    
+
+    .example-full-width {
+      width: 100%;
+    }
+
+    h5{
+      font-family:'Times New Roman', Times, serif;
+      color: #fff;
+    }
+
+    .btn{
+      width: 10rem;;
+    }
+    #button{
+        width: 7rem;
+        display: flex;
+        justify-content: center;
+    }
+    /* d-inline-block align-top{
+      position: absolute;
+    } */

@@ -1,0 +1,28 @@
+div,nav {
+  /* border: 2px solid black; */
+  width: 70%;
+}
+div{
+/* border: 2px solid black; */
+padding-left: 30%;
+padding-right: 10%;
+}
+/* section{
+padding-left: 10%;
+width: 50%;
+} */
+.form-group{
+font-size: 1rem;
+}
+.btn{
+/* border: 3px solid red ; */
+margin-left: 29rem;
+width:5rem;
+
+}
+body{
+height:auto;
+background-position: center;
+background-attachment: fixed;
+background-repeat: no-repeat;
+}

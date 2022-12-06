@@ -1,0 +1,59 @@
+#I1 {
+  height: 100px;
+  width: 150px;
+  }
+
+section{
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    height:100%;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+.example-card {
+    max-width: 400px;
+    /* background-color: azure; */
+    /* box-shadow: 5px 10px #c8ebf7; */
+  }
+.btn{
+  width: 10rem;;
+}
+.form-group{
+width:20rem;
+}
+.example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+
+.center-content{
+      text-align: -webkit-center;
+    }
+
+.example-full-width {
+      width: 100%;
+    }
+
+h5{
+      font-family:'Times New Roman', Times, serif;
+      -webkit-text-fill-color: black;
+    }
+    /* d-inline-block align-top{
+      position: absolute;
+    } */
+
+/* @media(max-width:998px){
+html{
+font-size: 55px;
+    }
+  } */
+/* @media(max-width:768px){
+html{
+  font-size: 45px;
+   }
+} */

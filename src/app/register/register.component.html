@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body  class="bg-[url('assets/image/galaxy.jpg')]  w-full h-screen bg-cover bg-no-repeat">
+
+    <!-- <section class="bg-[url('assets/image/homelowBackground.jpg')]  w-full h-screen bg-cover bg-no-repeat"> -->
+    <!-- Navbar image and text  -->
+<nav class="navbar navbar-light">
+  <a class="navbar-brand mx-14" href="#">
+    <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Worldline_SA_logo.svg/1280px-Worldline_SA_logo.svg.png" width="300" height="30" alt=""> -->
+   <p class=" text-black text-2xl "> WGS HIRING PORTAL </p> </a>
+</nav>
+<br>
+
+  <!-- Card Content -->
+  <div class="center-content">
+
+      <!-- card <header> -->
+      <!-- <mat-card-header> -->
+      <!-- <mat-card-title><h2>Worldine Global Services</h2></mat-card-title> -->
+      <!-- <mat-card-subtitle><h4>We Are Hiring</h4></mat-card-subtitle> -->
+      <!-- </mat-card-header> -->
+      <!-- wordline_logo_freelogovectors https://www.freelogovectors.net/wp-content/uploads/2022/04/wordline_logo_freelogovectors.net_.png-->
+
+      <div >
+        <img  id="I1" mat-card-image src="assets/image/worldlinelogo.png" alt="worldline">
+        <br>
+      </div>
+      <div class="text-black">
+        <h4 >Sign in to
+          WGS Hiring Portal</h4>
+          <br>
+      </div>
+
+
+        <form action="app.component.html" method="post" class="example-form" (ngSubmit)="userreg()">
+
+          <div class="form-group">
+            <input [(ngModel)]="u.wgsid" name="dasid"  class="form-control" type="text" placeholder="DAS ID">
+          </div>
+
+          <div class="form-group">
+            <input [(ngModel)]="u.usernmae" name="usernmae"  class="form-control" type="text" placeholder="name">
+          </div>
+
+          <div class="form-group">
+            <input [(ngModel)]="u.email" name="mail"  class="form-control" type="text" placeholder="eg. john.forbis@worldline.com">
+          </div>
+
+          <div class="form-group">
+            <input [(ngModel)]="u.password" name="pwd"  class="form-control" type="password" placeholder="password">
+          </div>
+
+          <div class="form-group">
+            <input class="form-control" type="password" placeholder="confirm password">
+          </div>
+
+        </form>
+
+      <button  type="button" class="btn btn-outline-light btn-sm btn-block" (click)="userreg()">Register</button>
+      <p class="text-black">Already a User?</p>
+      <button type="button" class="btn btn-outline-light btn-sm btn-block" [routerLink]="['/login']" >Login</button>
+
+  </div>
+  <br><br><br><br>
+</body>
+</html>
+<!--
+<form>
+  <label class="block">
+    <span class="block text-sm font-medium text-slate-700">Email</span>
+    <input type="email" class="peer ..."/>
+    <p class="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+      Please provide a valid email address.
+    </p>
+  </label>
+</form> -->

@@ -1,0 +1,20 @@
+<mat-icon  (click)="closeModal()" class="dot w-10 h-10 rounded-full hover:bg-gray-200 hover:rounded-full focus:ring-2">close</mat-icon>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <mat-select (selectionChange)="select($event)">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let ch of report" [value]="ch.value">{{ch.viewValue}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<input #input [(ngModel)]="searchText" class="placeholder:font-serif placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search here..." type="text" name="search"/>
+<br>
+<div class="" *ngFor="let items of searchData">
+  {{items.filterdata}}
+  {{items.input}}
+</div>
+<br>
+<div class="buttons">
+  <button (click)="searchdata(filterdata,input.value)"
+  class=" bg-indigo-500 rounded-full font-semibold hover:bg-indigo-600 text-black my-1 px-2 py-2 pt-2 pb-2 hover:ring-2 ">Search</button>
+  <button (click)="download()" class=" bg-indigo-500 rounded-full hover:bg-indigo-600 text-black mx-4 my-1 px-2 py-2 pt-2 pb-2 font-semibold hover:ring-2">Export CSV</button>
+  </div>
